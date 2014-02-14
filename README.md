@@ -77,8 +77,7 @@ To manually install KVNBoundedImageView, add KVNBoundedImageView.m and KVNBounde
 #### Podfile
 
 ```ruby
-platform :ios, '7.0'
-pod "KVNBoundedImageView",
+pod "KVNBoundedImageView"
 ```
 
 ### Requirements
