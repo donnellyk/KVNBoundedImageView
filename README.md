@@ -1,29 +1,30 @@
 # KVNBoundedImageView
 
-`KVNBoundedImageView` attempts to keep faces visible and centered in a `UIImageView`. It is designed to be easy to use and extendible for different types of image detection.
+KVNBoundedImageView attempts to keep faces visible and centered in a UIImageView. It is designed to be easy to use and extensible for different types of image detection.
 
-IMAGE HERE
+From ![Disabled ImageView](https://raw.github.com/donnellyk/KVNBoundedImageView/master/Assets/disabled.png) to ![Enabled](https://raw.github.com/donnellyk/KVNBoundedImageView/master/Assets/enabled.png) 
 
-With configurable detection speed, operation queues, and utilizing the optimized image rendering of `UIImageView` (no custom drawing here), `KVNBoundedImageView` aims to be as fast as possible, without blocking the main thread when heavy lifting is needed. Simple image loading via a URL is also available, so you may even be able to throw away that `UIImageView` catagory you've been dragging along between projects.
+With configurable detection speed, operation queues, caching, and utilizing the optimized image rendering of UIImageView (no custom drawing here), KVNBoundedImageView aims to be as fast as possible, without blocking the main thread when heavy lifting is needed. Simple image loading via a URL is also available, so you may even be able to throw away that UIImageView catagory you've been dragging along between projects.
 
 [![Version](http://cocoapod-badges.herokuapp.com/v/KVNBoundedImageView/badge.png)](http://cocoadocs.org/docsets/KVNBoundedImageView)
 [![Platform](http://cocoapod-badges.herokuapp.com/p/KVNBoundedImageView/badge.png)](http://cocoadocs.org/docsets/KVNBoundedImageView)
 
 ## Usage
 
-`KVNBoundedImageView` attempts to watch as many changes as possible within the `UIImageView`'s properties and respond appropriately to keep the features visible. However, if at any point you find the view not responding to changes, you can manually force it to update by calling `fitToFeature`. See the Example project for more details on all the examples below
+KVNBoundedImageView attempts to watch as many changes as possible within the UIImageView's properties and respond appropriately to keep the features visible. However, if at any point you find the view not responding to changes, you can manually force it to update by calling `fitToFeature`. See the Example project for more details on all the examples below
 
 ### Creating from NIB or Storyboard
 
-Drag a `UIImageView` onto the scene and change it's class to `KVNBoundedImageView` in the `Utilities` pane under `Identity Inspector`. You can set the reuse cache name under User Defined Runtime Attributes by setting `nibImageCacheName` with an NSString value.
-![Utility Pane screenshot](IMAGE HERE)
+Drag a UIImageView onto the scene and change it's class to KVNBoundedImageView in the Utilities pane under Identity Inspector. You can set the reuse cache name under User Defined Runtime Attributes by setting `nibImageCacheName` with an NSString value.
+
+![Utility Pane screenshot](https://raw.github.com/donnellyk/KVNBoundedImageView/master/Assets/utility.png)
 
 ### Creating Programically
 
 #### Bare Minimal
 ```objective-c
 KVNBoundedImageView *imageView = [[KVNBoundedImageView alloc] initWithFrame:aRect];
-[imageView setImage:[UIImage imageNamed:@"test"]];
+[imageView setImage:[UIImage imageNamed:@"test"] cacheName:@"test"];
     
 [imageScrollView addSubview:imageView];
 ```
@@ -32,23 +33,23 @@ KVNBoundedImageView *imageView = [[KVNBoundedImageView alloc] initWithFrame:aRec
 
 When doing custom configuration, it is adviced to set the all the parameters before you set the image to be detected. Otherwise, the detection & cropping will start, and then immediatly be cancelled & restarted.  
 
+```objective-c
 KVNBoundedImageView *imageView = [[KVNBoundedImageView alloc] initWithFrame:aRect];
 [imageView setBoundingBoxScheme:BoundingBoxSchemeLargest];
 [imageView setBoundingPadding:10.0];
-[imageView setImage:[UIImage imageNamed:@"test"] placeholder:[UIImage imageNamed:@"placeholder"]];
+[imageView setImage:[UIImage imageNamed:@"test"] cacheName:@"test" placeholder:[UIImage imageNamed:@"placeholder"]];
     
 [imageScrollView addSubview:imageView];
+```
 
 #### Load from a URL
 
 ```objective-c
 KVNBoundedImageView *imageView = [[KVNBoundedImageView alloc] initWithFrame:aRect];    
-[imageScrollView setImageFromURL:aURL placeholder:[UIImage imageNamed:@"placeholder"]];
+[imageScrollView setImageFromURL:aURL cacheName:@"test" placeholder:[UIImage imageNamed:@"placeholder"]];
 ```
 
-After the image is loaded, it is stored in memory using NSCache, so that it will quickly be available again if need be (until the cache is emptied).
-
-### Properties
+## Properties
 
 - `boundingPadding`: `CIDetector` has a thing against foreheads, it doesn't include them in the detection bounds. If you roughly know the size of the faces in your image or if you have having trouble with foreheads being cut off at the top of your image (or chins at the bottom), paying with this value might give you better results. It isn't a perfect science, though, and edge-cases abound!
 - `detectorAccuracy`: Changes the `CIDetectorAccuracy` used for feature detection. Default is `CIDetectorAccuracyLow`
@@ -57,12 +58,11 @@ After the image is loaded, it is stored in memory using NSCache, so that it will
     - `BoundingBoxSchemeLargest`: Uses the largest face found. Good for if you have images of crowds with a clear subject.
     - `BoundingBoxSchemeSmallest': Uses the smallest face found. To be honest, I only threw this because it was super easy to implement. I have no idea why you would want to use this. Maybe because everyone loves an underdog?
 - `boundingEnabled`: Enabled or disables the detection and bounding. If `NO`, the image is displayed with `UIViewContentModeScaleAspectFill`
-- `animated`: To make the transition a little nicer (but only a little, there is room for improvement), this provides a short Core Animation (kCATransitionFade) when the detection has finished. Defaults to YES.
-- `asyncronousDetection`: If, for whatever reason you don't want the detection running in the background, setting to NO makes everything run on the main thread (usually isn't *too* slow). Defaults to YES.
+- `animated`: To make the transition a little nicer (but only a little, there is room for improvement), this provides a short Core Animation (kCATransitionFade) when the detection has finished. Defaults to `YES`.
 
 ## Installation
 
-To manually install `KVNBoundedImageView`, add `KVNBoundedImageView.m` and `KVNBoundedImageView.h` files to your project. Import the `CoreImage` framework into your project.
+To manually install KVNBoundedImageView, add KVNBoundedImageView.m and KVNBoundedImageView.h files to your project. Import the CoreImage framework into your project.
 
 ### Installation with CocoaPods
 
@@ -73,6 +73,7 @@ To manually install `KVNBoundedImageView`, add `KVNBoundedImageView.m` and `KVNB
 ```ruby
 platform :ios, '7.0'
 pod "KVNBoundedImageView",
+```
 
 ### Requirements
 - CoreImage
@@ -119,4 +120,3 @@ KVNBoundedImageView is available under the MIT license. See the LICENSE file for
 ### Sample Photos
 
 All example photos taken from Flickr licensed under The Creative Commons. Thanks to [Thomas Saito](http://www.flickr.com/photos/thomas-saito), [Franki](http://www.flickr.com/photos/francki), [Ableman](http://www.flickr.com/photos/ableman).
-
