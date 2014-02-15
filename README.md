@@ -70,8 +70,6 @@ To manually install KVNBoundedImageView, add KVNBoundedImageView.m and KVNBounde
 
 ### Installation with CocoaPods 
 
-(Except not because still working on submitting to the CocoaPods repo)
-
 [CocoaPods](http://cocoapods.org) is a dependency manager for Objective-C, which automates and simplifies the process of using 3rd-party libraries like KVNBoundedImageView in your projects. See the ["Getting Started" guide for more information](https://github.com/AFNetworking/AFNetworking/wiki/Getting-Started-with-AFNetworking).
 
 #### Podfile
