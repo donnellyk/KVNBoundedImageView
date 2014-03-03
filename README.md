@@ -60,8 +60,8 @@ KVNBoundedImageView *imageView = [[KVNBoundedImageView alloc] initWithFrame:aRec
 - `boundingBoxScheme`: How the bounding rectangle is calculated.
     - `BoundingBoxSchemeAll`: All features detected are used. A rectangle that fits all features is created and used. This is the default behavior
     - `BoundingBoxSchemeLargest`: Uses the largest face found. Good for if you have images of crowds with a clear subject.
-    - `BoundingBoxSchemeSmallest': Uses the smallest face found. To be honest, I only threw this in because it was super easy to implement. I have no idea why you would want to use this. Maybe because everyone loves an underdog?
-- `boundingEnabled`: Enabled or disables the detection and bounding. If `NO`, the image is displayed with `UIViewContentModeScaleAspectFill`
+    - `BoundingBoxSchemeSmallest`: Uses the smallest face found. To be honest, I only threw this in because it was super easy to implement. I have no idea why you would want to use this. Maybe because everyone loves an underdog?
+- `boundingEnabled`: Enables or disables the detection and bounding. If `NO`, the image is displayed with `UIViewContentModeScaleAspectFill`
 - `animated`: To make the transition a little nicer (but only a little, there is room for improvement), this provides a short Core Animation (kCATransitionFade) when the detection has finished. Defaults to `YES`.
 
 ## Installation
@@ -96,7 +96,7 @@ This library uses a bit more memory then one would think, mainly around the usag
 
 ### Animations
 
-The imageview has to recrop the image with every aspect ratio change, so it probably not the best idea to have this component enabled while animating the bounds (center, origin is fine). The recommended way:
+The imageview has to recrop the image with every aspect ratio change, so it is probably not the best idea to have this component enabled while animating the bounds (center, origin is fine). The recommended way:
 
 ```objective-c
 UIImage *originalImage = imageView.originalImage;
