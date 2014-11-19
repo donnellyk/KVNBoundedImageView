@@ -214,7 +214,7 @@ static CGFloat const FeaturePaddingDefault = 5.0;
         UIImage *croppedImage = [[UIImage alloc] initWithCGImage:imageRef];
         CGImageRelease(imageRef);
         
-        if (name) {
+        if (name && croppedImage) {
             [[KVNBoundedImageView sharedCroppedImageCache] setObject:croppedImage forKey:[self cacheKeyWithName:name]];
         }
         
