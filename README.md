@@ -88,7 +88,7 @@ This library is designed with extensibility in mind. It is fairly easy to implem
 
 ## Note on Optimization and Caching
 
-This library utilizes a NSCache to store the cropped images for fast recall. The key uses a supplied cache name along with the detection accuracy, bounding box scheme, and current view aspect ratio. This is so the image does not get reused in a view that is won't properly fit.  NSCache responds to OS-level memory warnings to clear space, but if you are worried about memory usage, minimize the different configuration you use or you can just use `setImage:` or pass nil for a cache name and nothing will be cached. This caching designed with use in a UITableView in mind, however it hasn't been extensively tested so proceed with caution.
+This library utilizes a NSCache to store the cropped images for fast recall. The key uses a supplied cache name along with the detection accuracy, bounding box scheme, and current view aspect ratio. This is so the image does not get reused in a view that won't properly fit.  NSCache responds to OS-level memory warnings to clear space, but if you are worried about memory usage, minimize the different configuration you use or you can just use `setImage:` or pass nil for a cache name and nothing will be cached. This caching designed with use in a UITableView in mind, however it hasn't been extensively tested so proceed with caution.
 
 ### Memory Usage
 
