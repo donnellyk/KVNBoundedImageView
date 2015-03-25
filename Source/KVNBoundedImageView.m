@@ -336,8 +336,8 @@ static CGFloat const FeaturePaddingDefault = 5.0;
             return;
         }
         
-        self.imageURLRequest = [NSURLRequest requestWithURL:url];
-        NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:self.imageURLRequest delegate:strongSelf startImmediately:NO];
+        strongSelf.imageURLRequest = [NSURLRequest requestWithURL:url];
+        NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:strongSelf.imageURLRequest delegate:strongSelf startImmediately:NO];
         
         NSRunLoop *runLoop = [NSRunLoop currentRunLoop];
         strongSelf.runLoopPort = [NSPort port];
