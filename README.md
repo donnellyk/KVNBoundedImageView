@@ -1,3 +1,5 @@
+# This project is not maintained
+
 # KVNBoundedImageView
 KVNBoundedImageView attempts to keep faces visible and centered in a UIImageView. It is designed to be easy to use and extensible for different types of image detection.
 
